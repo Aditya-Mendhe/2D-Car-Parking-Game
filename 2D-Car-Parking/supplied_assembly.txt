@@ -1,0 +1,50 @@
+; ==============================================================================
+; PROJECT: 2D CAR PARKING GAME - ACADEMIC ASSEMBLY COA ARTIFACT
+; SUBJECT: Computer Organization & Architecture (COA) - 80386 Register Simulation
+; ==============================================================================
+;
+; This file contains the exact academic assembly sequences integrated into the
+; C++ COAProcessor emulator. It serves as primary evidence for COA viva evaluation.
+;
+; ------------------------------------------------------------------------------
+; SEQUENCE 1: MANDATORY ARITHMETIC SCORE CALCULATION
+; ------------------------------------------------------------------------------
+; Formula: Final Score = Base Score - Collision Penalty - Time Penalty + Precision Bonus
+; Values:  Base = 100, Collision Penalty = 20, Time Penalty = 10, Precision Bonus = 15
+; Calculation: 100 - 20 - 10 + 15 = 85 (Scaled in game by x10 -> 850 points)
+;
+; Instruction Trace:
+MOV #100, R00    ; R00 = 100 (Initialize Accumulator with Base Score)
+MOV #20,  R01    ; R01 = 20  (Load Collision Penalty into Operand Register 1)
+MOV #10,  R02    ; R02 = 10  (Load Time/Steering Penalty into Operand Register 2)
+MOV #15,  R03    ; R03 = 15  (Load Precision Parking Bonus into Operand Register 3)
+SUB R01,  R00    ; R00 = R00 - R01 = 100 - 20 = 80
+SUB R02,  R00    ; R00 = R00 - R02 = 80 - 10 = 70
+ADD R03,  R00    ; R00 = R00 + R03 = 70 + 15 = 85
+HLT              ; Stop execution. Final Result in R00 = 85
+
+; ------------------------------------------------------------------------------
+; SEQUENCE 2: SUPPLIED SUBSEQUENT MULTIPLY LOOP (subsequent multiply.sas)
+; ------------------------------------------------------------------------------
+; Operation: Multiply R00 * R01 using repeated addition loop (6 * 4 = 24)
+;
+MOV #6,   R00    ; Multiplicand = 6
+MOV #4,   R01    ; Multiplier / Loop Counter = 4
+MOV #0,   R03    ; Clear Result Accumulator (R03 = 0)
+LABEL1:
+ADD R00,  R03    ; R03 = R03 + R00 (Accumulate product)
+DEC R01          ; Decrement loop counter
+JNZ $LABEL1      ; Jump if Non-Zero (ZF = 0) to LABEL1
+HLT              ; Execution Complete. Product in R03 = 24
+
+; ------------------------------------------------------------------------------
+; SEQUENCE 3: PARKING TOLERANCE & COLLISION COMPARISON (CMP & FLAGS)
+; ------------------------------------------------------------------------------
+; Checks if |Car_Pos - Slot_Pos| <= Tolerance (EDX = 25)
+;
+; MOV EAX, [Car_X]      ; Load Car X coordinate into EAX
+; MOV EBX, [Slot_X]     ; Load Target Slot X coordinate into EBX
+; SUB EAX, EBX          ; EAX = Delta X (sets SF if negative, ZF if centered)
+; CMP |EAX|, EDX        ; Compare offset against tolerance threshold
+; JLE WITHIN_TOLERANCE  ; Jump if Less or Equal to proceed with parking decision
+; ==============================================================================

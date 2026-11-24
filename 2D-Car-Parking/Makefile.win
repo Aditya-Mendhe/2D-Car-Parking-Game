@@ -1,0 +1,49 @@
+# Project: 2D_Car_Parking
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = main.o Game.o PL_DataStructures.o OOPS_Vehicle.o OOPS_Car.o OOPS_Obstacle.o OOPS_ParkingLot.o CG_Renderer.o
+LINKOBJ  = main.o Game.o PL_DataStructures.o OOPS_Vehicle.o OOPS_Car.o OOPS_Obstacle.o OOPS_ParkingLot.o CG_Renderer.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc COA_Processor_asm.o freeglut.dll -lopengl32 -lglu32 -lgdi32 -lwinmm
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"include" -I"."
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"include" -I"."
+BIN      = 2D_Car_Parking.exe
+CXXFLAGS = $(CXXINCS) -std=c++11
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+main.o: main.cpp
+	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+
+Game.o: Game.cpp
+	$(CPP) -c Game.cpp -o Game.o $(CXXFLAGS)
+
+PL_DataStructures.o: PL_DataStructures.cpp
+	$(CPP) -c PL_DataStructures.cpp -o PL_DataStructures.o $(CXXFLAGS)
+
+OOPS_Vehicle.o: OOPS_Vehicle.cpp
+	$(CPP) -c OOPS_Vehicle.cpp -o OOPS_Vehicle.o $(CXXFLAGS)
+
+OOPS_Car.o: OOPS_Car.cpp
+	$(CPP) -c OOPS_Car.cpp -o OOPS_Car.o $(CXXFLAGS)
+
+OOPS_Obstacle.o: OOPS_Obstacle.cpp
+	$(CPP) -c OOPS_Obstacle.cpp -o OOPS_Obstacle.o $(CXXFLAGS)
+
+OOPS_ParkingLot.o: OOPS_ParkingLot.cpp
+	$(CPP) -c OOPS_ParkingLot.cpp -o OOPS_ParkingLot.o $(CXXFLAGS)
+
+CG_Renderer.o: CG_Renderer.cpp
+	$(CPP) -c CG_Renderer.cpp -o CG_Renderer.o $(CXXFLAGS)
